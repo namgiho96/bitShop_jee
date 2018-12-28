@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	홍길동 로그인 성공 
 </body>
 </html>
