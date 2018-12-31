@@ -9,6 +9,9 @@
 	String year = "";
 	String month = "";
 	String day = "";
+	year = ssn.substring(0,2);
+	month = ssn.substring(2,4);
+	day = ssn.substring(4,6);
 	
 	String bmi = "";
 	String hi = request.getParameter("hi");
@@ -70,8 +73,8 @@
 	<h3>생년월일<%=year%>년<%=month%>월<%=	%>일생</h3><br />
 	<h3>성별 :<%=gender%></h3><br />
 	<h3>BMI :<%=bmi%></h3><br />
-	<a href="">로그인 이동</a><br />
-	<a href="">홈으로 이동</a><br />
+	<a href="../index.jsp">로그인 이동</a><br />
+	<a href="login-from.jsp">홈으로 이동</a><br />
 
 
 </body>

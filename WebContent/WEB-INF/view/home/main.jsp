@@ -7,14 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>로그인</h1>
 	<div>
-		<form action="member.do">
-		ID <input type="text" name="id" /><br />
-		PASS <input type="text" name= "pass" /><br />
-		<input type="submit" id="btn" value = "로그인" />
-		</form>
+	<img src="<%= request.getContextPath()%>/resources/img/newyear.jpg" alt="" />
 	</div>
+	<h1>메 뉴</h1>
 	<a href="member/main.jsp">회원관리</a>
 	<a href="">계좌관리</a>
 	<a href="">게시판</a>
