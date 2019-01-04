@@ -1,6 +1,6 @@
 package domain;
 
-public class AcountBean {
+public class AccountBean {
 	private String accountNum, today;
 	private int money;
 

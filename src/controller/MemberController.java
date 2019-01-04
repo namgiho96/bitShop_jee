@@ -22,37 +22,41 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String dir = request.getServletPath();
-		String a = dir.replace(".do", "");
-		int c = dir.indexOf('.');
-		String b = dir.substring(1, c);
-		System.out.println(b);
-		dir = request.getParameter("dir");
+		System.out.println("맴버 들어옴");
 		String cmd = request.getParameter("cmd");
-		String page = request.getParameter("page");
-
+		cmd = (cmd == null) ? "move" : cmd;
+		String dir = request.getParameter("dir");
 		if (dir == null) {
+			dir = request.getServletPath();
+			String a = dir.replace(".do", "");
+			int c = a.indexOf('.');
+			String b = dir.substring(1, c);
 			dir = b;
+			System.out.println(dir);
 		}
-		
+		String page = request.getParameter("page");
 		if (page == null) {
 			page = "main";
+			System.out.println(page);
 		}
-		switch ((cmd == null) ? "move" : cmd) {
-
+		switch (cmd) {
 		case "login":
-			String id = request.getParameter("id");
-			String pass = request.getParameter("pass");
+			String id = request.getParameter("uid");
+			String pass = request.getParameter("upw");
 
-			if (id.equals("id") && pass.equals("pass")) {
-				Command.move(request, response, dir + "/" + page);
-			} else {
-				Command.move(request, response, "index");
+			if (!(id.equals("id") && pass.equals("pass"))) {
+				dir = "";
+				page = "index";
 			}
+			request.setAttribute("name","남기호");
+			request.setAttribute("compo","login-succes");
+			Command.move(request, response, dir, page);
+			System.out.println("dir " + dir + " " + page);
 			break;
+
 		case "move":
-			Command.move(request, response, dir+"/"+page);
+			System.out.println("무브들어옴");
+			Command.move(request, response, dir, page);
 			break;
 		}
 	}

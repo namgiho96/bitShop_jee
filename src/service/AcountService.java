@@ -2,23 +2,23 @@ package service;
 
 import java.util.ArrayList;
 
-import domain.AcountBean;
+import domain.AccountBean;
 
 public interface AcountService {
 
-	public void acountMake();
+	public String openAccountNum(int money);
 
-	public void acountlist();
+	public String createAccountNum();
 
-	public ArrayList<AcountBean> findbyname();
+	public String date();
 
-	public ArrayList<AcountBean> findbyid();
+	public ArrayList<AccountBean> findbyid();
 
-	public AcountBean findcount();
+	public AccountBean findcount();
 
-	public boolean exist();
+	public boolean updateDeposit(String accountnum,int money);
 
-	public void update();
+	public void updateWithdrawal(String accountnum,int money);
 
 	public void delete();
 

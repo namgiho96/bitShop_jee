@@ -18,28 +18,30 @@ import command.Command;
 public class ArticleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("+++ 게시판 서블릿으로 들어옴 +++");
-		String dir = request.getParameter("dir");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String cmd = request.getParameter("cmd");
+		cmd = (cmd == null) ? "move" : cmd;
+
 		String page = request.getParameter("page");
-		
-		if(dir == null) {
+		if (page == null) {
+			page = "main";
+		}
+
+		String dir = request.getParameter("dir");
+		if (dir == null) {
 			dir = request.getServletPath();
-			int a = dir.indexOf(".");
-			String b = dir.substring(1,8);
-			dir = b;
-		}
-		if(page==null) {
-			page ="main";
-		}
-		
-		
-		String action = request.getParameter("action");
-		switch((action == null) ? "move": action) {
-		case "move":
-			System.out.println("무브이동");
-			Command.move(request, response, dir+"/"+page);
-			break;
+			int b = dir.indexOf(".");
+			String a = dir.substring(1, b);
+			dir = a;
+
+			switch (cmd) {
+			case "move":
+				System.out.println("액션이 이동");
+				Command.move(request, response ,dir ,page);
+				break;
+			}
 		}
 	}
 
