@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
+import service.AcountService;
+import service.AcountServiceImpl;
 
 @WebServlet("/account.do")
 public class AccountController extends HttpServlet {
@@ -16,6 +18,7 @@ public class AccountController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		System.out.println("(1)account 들어옴");
 
 		String cmd = request.getParameter("cmd");
@@ -37,14 +40,19 @@ public class AccountController extends HttpServlet {
 
 			switch (cmd) {
 			case "move":
-				System.out.println("무브 들어왔어!");
+				request.setAttribute("dest", "open-form");
 				Command.move(request, response, dir, page);
+				System.out.println(": " + dir + page);
 				break;
-				
+
 			case "open-account":
+				AcountService service = new AcountServiceImpl();
+				request.setAttribute("acc",service.createAccountNum());
+				String dest = request.getParameter("dest");
+				request.setAttribute("dest", dest);
 				String money = request.getParameter("money");
-				System.out.println("돈 들어옴 "+money);
-				System.out.println(dir+" "+page);
+				request.setAttribute("accNum", money);
+				System.out.println("돈 들어옴 " + money);
 				Command.move(request, response, dir, page);
 				break;
 			}

@@ -19,7 +19,7 @@
 				<%@ include file="side-menu.jsp" %>
 			</td>
 			<td>
-				 <%@ include file="content.jsp"%>
+				 <%@ include file="login-success.jsp"%>
 			</td>
 		<tr style="height: 100%">
 			<td colspan="2">

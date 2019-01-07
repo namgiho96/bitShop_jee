@@ -12,9 +12,9 @@ public interface AcountService {
 
 	public String date();
 
-	public ArrayList<AccountBean> findbyid();
+	public ArrayList<AccountBean> accountlist();
 
-	public AccountBean findcount();
+	public AccountBean findcount(String accountNum);
 
 	public boolean updateDeposit(String accountnum,int money);
 

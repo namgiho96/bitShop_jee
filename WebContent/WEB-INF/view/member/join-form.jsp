@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<div id="join-form">
 	<h1>회원관리</h1>
 	<p>회원가입</p>
 	<form action="join-result.jsp">
@@ -19,5 +13,4 @@
 		<input type="submit" id="btn" value="JOIN" />
 	</form>
 
-</body>
-</html>
+</div>

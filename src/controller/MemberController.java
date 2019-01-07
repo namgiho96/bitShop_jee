@@ -13,9 +13,6 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 
 import command.Command;
 
-/**
- * Servlet implementation class MemberController
- */
 @WebServlet("/member.do")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,8 +26,7 @@ public class MemberController extends HttpServlet {
 		if (dir == null) {
 			dir = request.getServletPath();
 			String a = dir.replace(".do", "");
-			int c = a.indexOf('.');
-			String b = dir.substring(1, c);
+			String b = a.substring(1, 7);
 			dir = b;
 			System.out.println(dir);
 		}
@@ -48,14 +44,19 @@ public class MemberController extends HttpServlet {
 				dir = "";
 				page = "index";
 			}
-			request.setAttribute("name","남기호");
-			request.setAttribute("compo","login-succes");
+			request.setAttribute("name", "남기호");
+			request.setAttribute("compo", "login-success");
 			Command.move(request, response, dir, page);
 			System.out.println("dir " + dir + " " + page);
 			break;
 
 		case "move":
 			System.out.println("무브들어옴");
+			String dest = request.getParameter("dest");
+			if (dest == null) {
+				dest = "NONE";
+			}
+			request.setAttribute("dest", dest);
 			Command.move(request, response, dir, page);
 			break;
 		}
