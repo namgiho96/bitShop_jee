@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.Command;
+import domain.AccountBean;
 import service.AcountService;
 import service.AcountServiceImpl;
 
@@ -16,8 +17,11 @@ import service.AcountServiceImpl;
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		AcountService service = new AcountServiceImpl();
+		AccountBean bean = null;
 
 		System.out.println("(1)account 들어옴");
 
@@ -46,13 +50,12 @@ public class AccountController extends HttpServlet {
 				break;
 
 			case "open-account":
-				AcountService service = new AcountServiceImpl();
+				
 				request.setAttribute("acc",service.createAccountNum());
-				String dest = request.getParameter("dest");
-				request.setAttribute("dest", dest);
+				request.setAttribute("dest", request.getParameter("dest"));
 				String money = request.getParameter("money");
-				request.setAttribute("accNum", money);
-				System.out.println("돈 들어옴 " + money);
+				request.setAttribute("acc", service.findcount(
+						service.openAccountNum(Integer.parseInt(money))));
 				Command.move(request, response, dir, page);
 				break;
 			}

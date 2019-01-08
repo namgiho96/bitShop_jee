@@ -9,6 +9,8 @@ import domain.AccountBean;
 public class AcountServiceImpl implements AcountService {
 
 	private ArrayList<AccountBean> list;
+	
+	
 
 	public AcountServiceImpl() {
 		list = new ArrayList<>();
@@ -22,9 +24,7 @@ public class AcountServiceImpl implements AcountService {
 		bean.setToday(date());
 		list.add(bean);
 		accNum = bean.getAccountNum();
-
 		return accNum;
-
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class AcountServiceImpl implements AcountService {
 
 	@Override
 	public ArrayList<AccountBean> accountlist() {
+		
 		return list;
 	}
 
 	@Override
 	public AccountBean findcount(String accountNum) {
-
 		AccountBean account = new AccountBean();
 		for (int i = 0; i < list.size(); i++) {
 			if (accountNum.equals(list.get(i).getAccountNum())) {

@@ -27,11 +27,11 @@ public class MemberBean {
 		this.pass = pass;
 	}
 
-	public String getSnn() {
+	public String getSsn() {
 		return snn;
 	}
 
-	public void setSnn(String snn) {
+	public void setSsn(String snn) {
 		this.snn = snn;
 	}
 

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import domain.MemberBean;
 
 public interface MemberService {
-	public void joinMember();
+	
+	public void crateMember(MemberBean bean);
 
 	public ArrayList<MemberBean> listMembers();
 
 	public ArrayList<MemberBean> findbyname();
 
-	public MemberBean findbyid();
+	public MemberBean findbyid(String id);
 
 	public int countMembers();
 

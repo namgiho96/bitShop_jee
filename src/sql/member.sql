@@ -34,3 +34,8 @@ SELECT * FROM TAB;
     DB에서 한 row 를 추가하는것
     INSERT INTO  member(id,name,pass,ssn) :인스턴스 생성 명령어
     VALUES('hong','홍길동','1','960826-1234567')
+    
+    SELECT * FROM member;
+    
+    
+    

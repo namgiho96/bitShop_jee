@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="domain.*" %>
      <%
-    String money = String.valueOf(request.getAttribute("accNum"));
-    String acc = String.valueOf(request.getAttribute("acc"));
+    	AccountBean acc = (AccountBean)request.getAttribute("acc");
     %>
 
 <div id="open-result">
 	성공적으로 개설 되었습니다<br />
-		계좌번호 : <%= acc%> <br />
-		잔액 :	<%= money%><br />
+	계좌번호<%= acc%> <br/>
 </div>
