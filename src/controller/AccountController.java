@@ -20,8 +20,8 @@ public class AccountController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AcountService service = new AcountServiceImpl();
-		AccountBean bean = null;
+		AcountService acountService = AcountServiceImpl.getInstance();
+		AccountBean account= null;
 
 		System.out.println("(1)account 들어옴");
 
@@ -33,7 +33,6 @@ public class AccountController extends HttpServlet {
 			page = "main";
 			System.out.println("page" + page);
 		}
-
 		String dir = request.getParameter("dir");
 		if (dir == null) {
 			dir = request.getServletPath();
@@ -50,14 +49,26 @@ public class AccountController extends HttpServlet {
 				break;
 
 			case "open-account":
-				
-				request.setAttribute("acc",service.createAccountNum());
-				request.setAttribute("dest", request.getParameter("dest"));
+				AccountBean accountBean = new AccountBean();
 				String money = request.getParameter("money");
-				request.setAttribute("acc", service.findcount(
-						service.openAccountNum(Integer.parseInt(money))));
+				
+				/*request.setAttribute("acc",AcountServiceImpl.getInstance().findAcount(accountBean.getAccountNum()));*/
+				request.setAttribute("dest", request.getParameter("dest"));
 				Command.move(request, response, dir, page);
+				/*	request.setAttribute("acc", service.findcount(
+						service.openAccountNum(Integer.parseInt(money))));*/
 				break;
+			case "list-account":
+				break;
+			case "find-accout":
+				break;
+			case "deposit-money":
+				break;
+			case "withdraw-money":
+				break;
+			case "delete-account":
+				break;
+			
 			}
 		}
 	}

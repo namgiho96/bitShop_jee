@@ -6,17 +6,17 @@ import domain.MemberBean;
 
 public interface MemberDAO {
 
-	public void insertMember(MemberBean bean);
+	public void insertMember(MemberBean member);
 
-	public ArrayList<MemberBean> selectMembers();
+	public ArrayList<MemberBean> selectAllMembers();
 
-	public ArrayList<MemberBean> selectbyname();
+	public ArrayList<MemberBean> selectMembersbyname(String name);
 
-	public MemberBean selectbyid();
+	public MemberBean selectMemberbyid(String id);
 
 	public int countMembers();
 
-	public void updateMember();
+	public void updateMember(MemberBean member);
 
-	public void deleteMember();
+	public void deleteMember(String id,String pass);
 }

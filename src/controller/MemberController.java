@@ -76,7 +76,7 @@ public class MemberController extends HttpServlet {
 			bean.setName(request.getParameter("name"));
 			bean.setSsn(request.getParameter("ssn"));
 			MemberServiceImpl.getInstance().crateMember(bean);
-			bean = memberService.findbyid("");
+			bean = memberService.findMemberByid("");
 			request.setAttribute("dast","mypage");
 			request.setAttribute("member",MemberServiceImpl.getInstance());
 			Command.move(request, response, dir, page);

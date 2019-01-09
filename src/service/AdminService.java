@@ -6,19 +6,19 @@ import domain.AdminBean;
 
 public interface AdminService {
 
-	public void Crate();
+	public void crateAdmin();
 
-	public ArrayList<AdminBean> alllist();
+	public ArrayList<AdminBean> alllistAdmin();
 
-	public ArrayList<AdminBean> findbyname();
+	public ArrayList<AdminBean> findbyAuth(String auth);
 
-	public AdminBean findbyid();
+	public AdminBean findByName(String name);
 
-	public int count();
+	public int countAdmin();
 
-	public boolean exist();
+	public boolean existAdmin(String id,String pass);
 
 	public void update();
 
-	public void delete();
+	public void delete(String name,String pass);
 }

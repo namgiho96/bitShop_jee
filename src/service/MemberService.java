@@ -8,17 +8,17 @@ public interface MemberService {
 	
 	public void crateMember(MemberBean bean);
 
-	public ArrayList<MemberBean> listMembers();
+	public ArrayList<MemberBean> findAllMembers();
 
-	public ArrayList<MemberBean> findbyname();
+	public ArrayList<MemberBean> findMembersByName(String name);
 
-	public MemberBean findbyid(String id);
+	public MemberBean findMemberByid(String id);
 
 	public int countMembers();
 
-	public boolean existMember();
+	public boolean existMember(String id, String pass);
 
-	public void updateMember();
+	public void changeMember(MemberBean member);
 
-	public void deleteMember();
+	public void removeMember(String id,String pass);
 }

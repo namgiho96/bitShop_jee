@@ -7,68 +7,135 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import domain.MemberBean;
+import factory.DatabaseFactory;
+import pool.Constant;
 import sun.security.jca.GetInstance;
 
 public class MemberDAOImpl implements MemberDAO {
-	
+
 	private static MemberDAOImpl instance = new MemberDAOImpl();
-	private  MemberDAOImpl() {}
-	public static MemberDAOImpl getInstance() {return instance;}
-	
-	Connection conn;
-	Statement stmt;
-	ResultSet rs ;
+
+	private MemberDAOImpl() {
+	}
+
+	public static MemberDAOImpl getInstance() {
+		return instance;
+	}
 
 	@Override
-	public void insertMember(MemberBean bean) {
+	public void insertMember(MemberBean member) {
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "oracle", "password");
-			stmt = conn.createStatement();
-			String sql = String.format("INSERT INTO  member(id,name,pass,ssn)\n"
-					+ "VALUES('%s','%s','%s','%s')",
-					bean.getId(),bean.getName(),bean.getPass(),bean.getSsn()
-					);
-				System.out.println("SQL :::"+sql);
-				//rs = stmt.executeQuery(sql);
-			if(stmt.executeUpdate(sql)==1) {
-				System.out.println("회원가입 성공");
-			}else {
-				System.out.println("회원가입 실패");
-			}
+			DatabaseFactory.
+			createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeUpdate(String.format(
+					"INSERT INTO  member(id,name,pass,ssn)\n"
+					+"VALUES('%s','%s','%s','%s')",
+					member.getId(), member.getName(),
+					member.getPass(), member.getSsn()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public ArrayList<MemberBean> selectMembers() {
-		return null;
+	public ArrayList<MemberBean> selectAllMembers() {
+		ArrayList<MemberBean> list = new ArrayList<>();
+		try {
+			
+			String sql="";
+			DatabaseFactory.
+			createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeQuery(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
-	public ArrayList<MemberBean> selectbyname() {
-		return null;
+	public ArrayList<MemberBean> selectMembersbyname(String name) {
+		ArrayList<MemberBean> list = new ArrayList<>();
+		try {
+			String sql ="";
+			DatabaseFactory.
+			createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeQuery(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
-	public MemberBean selectbyid() {
-		return null;
+	public MemberBean selectMemberbyid(String id) {
+		MemberBean member = new MemberBean();
+
+		try {
+			String sql ="";
+			DatabaseFactory.
+			createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeQuery(sql);
+
+		} catch (Exception e) {
+
+		}
+		return member;
 	}
 
 	@Override
 	public int countMembers() {
-		return 0;
+		int count = 0;
+
+		try {
+			String sql ="";
+			DatabaseFactory.createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return count;
 	}
 
 	@Override
-	public void updateMember() {
+	public void updateMember(MemberBean member) {
+		try {
+			String sql ="";
+			DatabaseFactory.createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeUpdate(sql);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Override
-	public void deleteMember() {
-
+	public void deleteMember(String id, String pass) {
+		try {
+			String sql ="";
+			DatabaseFactory.
+			createDatebase("oracle").
+			getConnection().
+			createStatement().
+			executeUpdate(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
