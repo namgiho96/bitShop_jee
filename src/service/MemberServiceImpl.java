@@ -21,11 +21,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void crateMember(MemberBean bean) {
 		System.out.println("멤버서비스 조인에 진입");
-		System.out.println("::컨트롤러에서 넘어온 회원정보::");
-		System.out.println("ID :" + bean.getId());
-		System.out.println("Name :" + bean.getName());
-		System.out.println("Pass :" + bean.getPass());
-		System.out.println("Ssn :" + bean.getSsn());
 		dao.insertMember(bean);
 	}
 
@@ -43,8 +38,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberBean findMemberByid(String id) {
-		MemberBean member = dao.selectMemberbyid(id);
-
+		MemberBean member = dao.existMember(id);
+		
 		return member;
 	}
 
@@ -56,7 +51,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean existMember(String id, String pass) {
-		return false;
+		
+		MemberBean member = dao.existMember(id);
+		
+		boolean exist = false;
+		if(member != null && pass.equals(member.getPass())) {
+			System.out.println("$$$$$ 로그인 성공 $$$$$$$$$$$$$$$$");
+			exist = true;
+		}
+		
+		return exist;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%-- <%@ include file="head.jsp"%> --%>
+
 <link rel="stylesheet" href="<%= application.getContextPath()%>/resources/css/style.css"/>
 <body>
 	<table id="wrapper">
@@ -19,7 +20,8 @@
 				<%@ include file="side-menu.jsp" %>
 			</td>
 			<td>
-				 <%@ include file="login-success.jsp"%>
+				 
+				 <%@ include file="welcome.jsp"%>
 			</td>
 		<tr style="height: 100%">
 			<td colspan="2">

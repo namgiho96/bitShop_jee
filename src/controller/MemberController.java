@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.Command;
 import domain.MemberBean;
@@ -20,9 +21,18 @@ public class MemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		MemberService memberService = MemberServiceImpl.getInstance();
-		MemberBean bean = null;
+		MemberBean member = null;
 		System.out.println("맴버 들어옴");
+		
+		/**
+		 디폴트 값
+		CMD :move
+		DIR :member
+		page:main
+		dest:NONE
+		 * **/
 		
 		String cmd = request.getParameter("cmd");
 		cmd = (cmd == null) ? "move" : cmd;
@@ -42,47 +52,65 @@ public class MemberController extends HttpServlet {
 			System.out.println(page);
 		}
 		System.out.println("CMD"+cmd);
+		HttpSession session  = request.getSession();
+		
+		
 		switch (cmd) {
 		case "login":
+			member = new MemberBean();
 			String id = request.getParameter("uid");
 			String pass = request.getParameter("upw");
-
-			if (!(id.equals("id") && pass.equals("pass"))) {
+			boolean loginok = memberService.existMember(id,pass);
+			
+			if (loginok) {
+				System.out.println("로그인성공");
+				session.setAttribute("user",memberService.findMemberByid(id));
+				
+			}else {
+				System.out.println("로그인실패");
 				dir = "";
 				page = "index";
+				
 			}
-			
-			request.setAttribute("name", "남기호");
-			request.setAttribute("compo", "login-success");
-			Command.move(request, response, dir, page);
-			System.out.println("dir " + dir + " " + page);
 			break;
 
 		case "move":
-			System.out.println("무브들어옴");
+			System.out.println("(1).무브들어옴");
 			String dest = request.getParameter("dest");
 			if (dest == null) {
 				dest = "NONE";
 			}
-			
 			request.setAttribute("dest", dest);
-			Command.move(request, response, dir, page);
 			break;
 		case "join":
 			System.out.println("(join 들어옴)");
-			bean = new MemberBean();
-			bean.setId(request.getParameter("id"));
-			bean.setPass(request.getParameter("pass"));
-			bean.setName(request.getParameter("name"));
-			bean.setSsn(request.getParameter("ssn"));
-			MemberServiceImpl.getInstance().crateMember(bean);
-			bean = memberService.findMemberByid("");
-			request.setAttribute("dast","mypage");
-			request.setAttribute("member",MemberServiceImpl.getInstance());
-			Command.move(request, response, dir, page);
-			System.out.println("dir : "+dir+"page :"+page);
+			member = new MemberBean();
+			member.setId(request.getParameter("id"));
+			member.setPass(request.getParameter("pass"));
+			member.setName(request.getParameter("name"));
+			member.setSsn(request.getParameter("ssn"));
+			memberService.crateMember(member);
+			session.setAttribute("member",memberService.findMemberByid(member.getId()));
+			System.out.println(">>>>>>>>> 조회결과"+member.toString());
+			break;
+		case "logout":
+			System.out.println("로그아웃!!");
+			dir = "";
+			page = "index";
+			dest = "";
+			session.invalidate();
+			break;
+		case "detail":
+			dir = "member";
+			page = "main";
+			request.setAttribute("dest","detail");
+			dest = getInitParameter("dest");
+			System.out.println("detail dest는 : "+dest);
+		/*	id = request.getParameter("id");
+			request.setAttribute("member",memberService.findMemberByid(id));*/
 			break;
 		}
+		Command.move(request,response, dir, page);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

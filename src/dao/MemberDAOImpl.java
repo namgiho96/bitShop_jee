@@ -1,15 +1,10 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import domain.MemberBean;
 import factory.DatabaseFactory;
-import pool.Constant;
-import sun.security.jca.GetInstance;
 
 public class MemberDAOImpl implements MemberDAO {
 
@@ -25,7 +20,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void insertMember(MemberBean member) {
 		try {
-			DatabaseFactory.
+		 int rs =DatabaseFactory.
 			createDatebase("oracle").
 			getConnection().
 			createStatement().
@@ -34,6 +29,11 @@ public class MemberDAOImpl implements MemberDAO {
 					+"VALUES('%s','%s','%s','%s')",
 					member.getId(), member.getName(),
 					member.getPass(), member.getSsn()));
+		 if(rs==1) {
+			 System.out.println("회원가입 성공!");
+		 }else {
+			 System.out.println("실패");
+		 }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,15 +76,22 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public MemberBean selectMemberbyid(String id) {
-		MemberBean member = new MemberBean();
-
+		MemberBean member = null;
 		try {
-			String sql ="";
-			DatabaseFactory.
+			ResultSet rs =DatabaseFactory.
 			createDatebase("oracle").
 			getConnection().
 			createStatement().
-			executeQuery(sql);
+			executeQuery(String.format("SELECT * FROM member\n" + 
+					" WHERE id LIKE '%s'",id));
+			System.out.println("ID : "+rs.getString("id"));
+			while(rs.next()) { // 값이 있으면 true
+				member = new MemberBean();
+				member.setId(rs.getString("id"));
+				member.setName(rs.getString("name"));
+				member.setPass(rs.getString("pass"));
+				member.setSsn(rs.getString("ssn"));
+							}
 
 		} catch (Exception e) {
 
@@ -136,6 +143,44 @@ public class MemberDAOImpl implements MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public MemberBean existMember(String id) {
+		MemberBean member = null;
+		try {
+			String sql = String.format("SELECT * FROM member WHERE id LIKE '%s'", id);
+			System.out.println("로그인 쿼리: "+sql);
+			ResultSet rs = DatabaseFactory.createDatebase("oracle")
+			.getConnection()
+			.createStatement()
+			.executeQuery(sql);
+			while(rs.next()) {
+				member = new MemberBean();
+				member.setId(rs.getString("id"));
+				member.setName(rs.getString("name"));
+				member.setPass(rs.getString("pass"));
+				member.setSsn(rs.getString("ssn"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("로그인한 정보: "+member.toString());
+		return member;
+	/*	ResultSet rs = DatabaseFactory.
+		createDatebase("oracle").
+		getConnection().
+		createStatement().
+		executeQuery();
+		
+		while(rs.next()) {
+			MemberBean member = new MemberBean();
+			member.setId(rs.getString("id"));
+			member.setPass(rs.getString("pass"));
+		}
+		
+		return null;*/
 	}
 
 }

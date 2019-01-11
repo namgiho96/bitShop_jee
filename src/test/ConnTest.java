@@ -20,14 +20,18 @@ public class ConnTest {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("SELECT * FROM member");
 			System.out.println("while 전");
-			String name ="";
+			String id ="";
+			String pass ="";
+			
 			if(rs.next()) {
 				System.out.println("회원있음");
-				name = rs.getString("name");
+				id = rs.getString("id");
+				pass = rs.getString("pass");
 			}else {
 				System.out.println("회원없음");
 			}
-			System.out.println("회원의 이름: "+name);
+			System.out.println("회원의 이름: "+id);
+			System.out.println("회원의 이름: "+pass);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
